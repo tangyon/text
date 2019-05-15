@@ -1,0 +1,54 @@
+.password {
+		width: 100%;
+		height: 100%;
+		background: url(../img/02.jpg);
+	}
+	
+	.van-nav-bar {
+		background-color: transparent;
+		position: relative;
+	}
+	
+	.van-icon-arrow-left:before {
+		font-size: 0.54054rem;
+		color: black;
+	}
+	
+	.van-field__control {
+		color: black;
+		font-size: 0.486486rem;
+	}
+	
+	.password-btn {
+		width: 70%;
+		margin: 0.27027rem auto;
+	}
+	
+	.password-big {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: rgba(0, 0, 0, .5);
+	}
+	
+	.password-small {
+		width: 70%;
+		height: 20%;
+		background-color: aliceblue;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+	}
+	
+	.confirm {
+		width: 60%;
+		margin: 0.54054rem 20%;
+	}
+	.van-nav-bar .van-nav-bar__title,.van-nav-bar .van-icon-arrow-left:before{
+		color: #000;
+	}
