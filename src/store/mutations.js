@@ -26,11 +26,11 @@ export default {
 	},
 	// 	当前
 	setIndex(state, index) {
+		console.log(index)
 		state.index = index
 		state.pic = state.keywordData[index].pic
 		state.url = state.keywordData[index].url
 		state.id = state.keywordData[index].id
-
 	},
 	// 	音乐歌词
 	setLrc(state, data) {
@@ -72,11 +72,11 @@ export default {
 	},
 	//当前组件
 	setModuleIndex(state,index){
+		console.log(index)
 		state.moduleIndex=index
 	},
     setSongList(state,data){
     	state.songListData=data
-    	console.log(data)
     },
     hideLoading(state,i){
     	state.loading=i
@@ -86,5 +86,8 @@ export default {
     },
     setMVListAmount(state){
     	state.MVListAmount+=10
+    },
+    setTouchShow(state,b){
+    	state.touchShow=b
     }
 }

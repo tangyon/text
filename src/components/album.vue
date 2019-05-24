@@ -74,11 +74,15 @@
 			</div>
 			<div class="show-content" @click="singer">
 				<div class="glyphicon glyphicon-user"></div>
-				<div class="text">歌手:{{this.data.songs[this.indexI].singer}}</div>
-				
+				<div class="text">歌手:{{data ? data.songs[indexI].singer:""}}</div>
 			</div>
 		</van-actionsheet>
 		<van-loading color="#ddd" v-show="loading" />
+		<div class="singerArr" v-show="vShow">
+			<li class="singerArr-name" v-for="(item,index) in singerArr " :key="index" @click="seek(item)">
+				{{item}}
+			</li>
+		</div>
 	</div>
 	
 </template>
@@ -105,6 +109,7 @@
 				indexI:0,
 				singerArr:[],
 				Date:0,
+				vShow:false,
 			}
 		},
 		computed:{
@@ -137,6 +142,7 @@
 				this.$store.commit("setIndex",0)
 			},
 			goplay(index){
+				console.log('url',this.url)
 				this.defaultIndex=index
 				let icon=this.$refs.iconIndex
 				if(this.index!=null&&this.index!=index){
@@ -157,21 +163,20 @@
 				if(index!=0){
 					icon[0].innerHTML=1
 				}
-//				console.log(this.data.songs)
 					
 			},
 			toplay(index){
 						let icon=this.$refs.iconIndex
 				if(icon[index].getAttribute('class')=='glyphicon glyphicon-volume-up'){
 								
-//						if(this.datas[0].id!=this.data.songs[0].id){
-//						this.$store.commit("setKeywordData",this.data.songs)
-//					}
-//						this.$store.commit("setIndex",index)
+						if(this.datas[0].id!=this.data.songs[0].id){
+						this.$store.commit("setKeywordData",this.data.songs)
+					}
+						this.$store.commit("setIndex",index)
 						this.$store.dispatch("lyric")
 						this.$router.push({path:"/describe"})
-//						let audio=document.querySelector("audio")
-//						audio.src=this.url
+						let audio=document.querySelector("audio")
+						audio.src=this.url
 				}
 			},
 			menu(index){
@@ -181,6 +186,7 @@
 			},
 			//下一首播放
 			nextPlay(){
+				this.show=false
 				this.indexI=this.indexI+1
 				this.goplay(this.indexI)
 
@@ -189,10 +195,16 @@
 			singer(){
 				let singer=this.data.songs[this.indexI].singer
 				singer=singer.split("/")
-//				console.log(singer)
+				console.log(singer)
 				this.singerArr=singer
+				if(this.singerArr.length>1){
+					this.show=false
+					this.vShow=true
+				}
 			},
-			
+			seek(item){
+				console.log(item)
+			},
 			//监听滚动定位
 			handle(){
 				var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -257,8 +269,6 @@
 		},
 		
 		created(){
-//			this.Date=new Date	
-//			this.$store.commit("hideLoading",true)
 		},
 		 mounted(){
 //		 	let time=(new Date)-this.Date
@@ -513,4 +523,26 @@
 			font-size: 0.54054rem;
 		}
 	}		
+	.singerArr{
+		position: fixed;
+		width: 80%;
+		height: 2.702702rem;
+		background-color: rgba(0,0,0,.5);
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		margin: auto;
+		padding: 0.27027rem;
+		.singerArr-name{
+			text-align: center;
+			color: white;
+			font-size: 0.378378rem;
+			border: ;
+		}
+	}
+	li{
+		list-style: none;
+		border: 0.027027rem solid #F0F8FF;
+	}
 </style>

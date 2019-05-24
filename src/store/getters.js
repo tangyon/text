@@ -55,5 +55,8 @@ export default{
    	getMVList(state){
    		return state.MVList
    	},
+   	getTouchShow(state){
+   		return state.touchShow
+   	},
    	
 }

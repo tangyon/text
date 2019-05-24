@@ -60,6 +60,7 @@ export default{
 			axios.get(`api/music/netease/songList?key=579621905&id=${id}&limit=10&offset=0`).then( res=>{
    			let data=res.data.data
    			context.commit("setSongList",data)
+   			console.log("data",data)
    			let finishDate=new Date()
 				let time=(finishDate-axiosDate)
 				setTimeout(()=>{
