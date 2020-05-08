@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     	<div class="audio">
+			==============================================
     		<audio controls autoplay preload >
 		   		<source  >
 				</audio>
