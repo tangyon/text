@@ -14,5 +14,6 @@ export default{
    	songListData:'',              //歌单
    	loading:true,                 //加载
    	MVList:"",                    //MV排行榜
-   	MVListAmount:10              //mv数量
+   	MVListAmount:10,              //mv数量
+   	touchShow:true
 }

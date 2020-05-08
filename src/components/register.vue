@@ -104,6 +104,7 @@
 						}
 						localStorage.setItem("lastAccount",JSON.stringify(data))
 						localStorage.setItem("register",JSON.stringify(register))
+						this.$store.commit("setModuleIndex",0)
 						this.go('/lately');
 						return
 					}

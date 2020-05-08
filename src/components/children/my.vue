@@ -27,14 +27,13 @@
 		</h4>
 		<div v-show="hide">
 			<li class="my-list" v-for="(item,index ) in data" :key="index" @click="enshrine(index)">
-				
-				<van-swipe-cell :right-width="65" >
+
+				<van-swipe-cell :right-width="65">
 					<van-cell-group>
-						<span class="my-list-icon" 
-						:style="{background:`url(${item.img })0 / 100% auto`}"></span>
+						<span class="my-list-icon" :style="{background:`url(${item.img })0 / 100% auto`}"></span>
 						<div class="my-list-test">
-						<p>{{item.title}}</p>
-						<p>{{item.data.length}}首</p>
+							<p>{{item.title}}</p>
+							<p>{{item.data.length}}首</p>
 						</div>
 					</van-cell-group>
 					<span class="def" slot="right" @click="def(index)">删除</span>
@@ -47,7 +46,6 @@
 			<span class="btn" @click="submit">提交</span>
 		</van-popup>
 
-		
 	</div>
 
 </template>
@@ -65,7 +63,7 @@
 				createds: false,
 				value: "",
 				song: "",
-				img:""
+				img: ""
 			}
 		},
 		components: {
@@ -112,12 +110,10 @@
 				this.data.push(obj)
 				this.createds = false
 				let userinfo = JSON.parse(localStorage.userinfo)
-				let i=this.gg()		
-						userinfo[i].CreateMusic.push(obj)
-						localStorage.setItem("userinfo", JSON.stringify(userinfo))
-						
-					
-				
+				let i = this.gg()
+				userinfo[i].CreateMusic.push(obj)
+				localStorage.setItem("userinfo", JSON.stringify(userinfo))
+
 			},
 			skip(item) {
 				this.$store.commit("setSongList", item)
@@ -126,54 +122,61 @@
 				})
 			},
 			enshrine(index) {
-				
-				if(this.data[index].data.length>0){
+
+				if(this.data[index].data.length > 0) {
 					this.$router.push({
-					path: "/mySong",
-					query: {
-						index: index
-					}
-				 })
+						path: "/mySong",
+						query: {
+							index: index
+						}
+					})
 				}
-				
+
 			},
-			gg(){
+			gg() {
 				let userinfo = JSON.parse(localStorage.userinfo)
 				let register = JSON.parse(localStorage.register)
 				for(let i in userinfo) {
 					if(userinfo[i].phone == register.phone) {
-					return i
-				  }
-				}	
+						return i
+					}
+				}
 			},
-			
-//			删除创建歌单
-			def(index){
-				let i=this.gg()
+
+			//			删除创建歌单
+			def(index) {
+				let i = this.gg()
 				let userinfo = JSON.parse(localStorage.userinfo)
-				this.data.splice(index,1)
-				userinfo[i].CreateMusic.splice(index,1)
-				localStorage.setItem("userinfo",JSON.stringify(userinfo))
+				this.data.splice(index, 1)
+				userinfo[i].CreateMusic.splice(index, 1)
+				localStorage.setItem("userinfo", JSON.stringify(userinfo))
 			},
 			//删除收藏的歌单
-			defSong(index){
-					let i=this.gg()
-					let userinfo = JSON.parse(localStorage.userinfo)
-					this.song.splice(index,1)
-					console.log(this.song)
-					userinfo[i].mySong.splice(index,1)
-					localStorage.setItem("userinfo",JSON.stringify(userinfo))
+			defSong(index) {
+				let i = this.gg()
+				let userinfo = JSON.parse(localStorage.userinfo)
+				this.song.splice(index, 1)
+				userinfo[i].mySong.splice(index, 1)
+				localStorage.setItem("userinfo", JSON.stringify(userinfo))
 			}
 		},
 		created() {
-					let i=this.gg()
-					let userinfo = JSON.parse(localStorage.userinfo)
-					this.data = userinfo[i].CreateMusic
-					this.song = userinfo[i].mySong
-					this.data[i].img=this.data[i].data.length>0 ? 
-								this.data[i].data[0].pic:this.data[i].img
-								
-					console.log(this.img)
+			let i = this.gg()
+			let userinfo = JSON.parse(localStorage.userinfo)
+			console.log(userinfo[i].mySong)
+			this.data = userinfo[i].CreateMusic
+			this.song = userinfo[i].mySong
+			if(this.data[0].img == undefined) {
+				this.data[0].img = 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1165946558,2714912153&fm=27&gp=0.jpg'
+			} else {
+
+				for(let ke in this.data) {
+					this.data[ke].img = this.data[i].data.length > 0 ?
+					this.data[ke].data[0].pic : this.data[i].img
+				}
+
+			}
+
 		}
 	}
 </script>
@@ -242,8 +245,9 @@
 			height: 0.648648rem;
 		}
 	}
-	.def{
-	    display: inline-block;
+	
+	.def {
+		display: inline-block;
 		width: 1.351351rem;
 		height: 0.675675rem;
 		background-color: red;

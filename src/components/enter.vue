@@ -93,7 +93,6 @@
 				this.$store.commit("setLocalStorage",data)
 				console.log(this.getLocalStorageData)
 				localStorage.setItem("userinfo", JSON.stringify(this.getLocalStorageData))
-				
 				this.$router.push({
 					path
 				})

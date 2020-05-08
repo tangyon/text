@@ -1,15 +1,18 @@
 <template>
   <div class="home" ref="home" >
   	<v-touch v-on:swiperight="onSwipeRight" :swipe-options="{direction: 'horizontal'}">
-	  		<div class="logo" >
+	  		<v-touch v-on:swiperight="onRight" :swipe-options="{direction: 'horizontal'}"><div class="logo" >
 	  		<p>让你流汗的音乐</p>
 	<!--  		<span>登录</span>-->
 	  	</div>
 	   <div class="nvb" ref="nvb">
-	   	<div v-for="(item,i) in nvb" @click="skip(i)" :class="[ index==i ? 'con':'']" class="nvb-box">
+	   	<div v-for="(item,i) in nvb" @click="skip(i)" :class="[ index==i ? 'con':'']" 
+	   		class="nvb-box">
 	   		<router-link :to=routers[i]><div >{{item}}</div></router-link>
 	   	</div>
 	   </div>
+	   </v-touch>
+	  		
 	    <router-view />
   	</v-touch>
   	<van-popup v-model="show" position="left">
@@ -49,10 +52,16 @@ export default {
   
   methods:{
   	skip(index){
+  		console.log("跳转",index)
   		this.$store.commit("setModuleIndex",index)
   		if(this.nvb[index]=="MV"){
 				this.$store.dispatch("MVlist")  			
   		}
+  		if(index==3){
+  				let data=JSON.parse(localStorage.userinfo)
+  				console.log(data)
+  				
+  			}
   	},
   	handleScroll(){
   		 var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
@@ -63,9 +72,16 @@ export default {
   			}else{
   				nvb.setAttribute("class","nvb")
   			}
+  			
   	},
   	onSwipeRight(){
-  		this.show=true
+  		if(this.touchShow==false){
+  			return
+  		}
+  			this.show=true
+  	},
+  	onRight(){
+  			this.show=true
   	},
   	//上传图片
   	onRead(file) {
@@ -109,6 +125,10 @@ export default {
   	},
   	index(){
   		return this.$store.state.moduleIndex
+  	},
+  	touchShow(){
+  		
+  		return this.$store.getters.getTouchShow
   	}
   },
 mounted () {
@@ -176,6 +196,10 @@ mounted () {
 		line-height: 1.351351rem;
 		text-align: center;
 		margin: 0.405405rem calc((70%-70px)/2);
+	}
+	.van-popup--left{
+		text-align: center;
+		font-size: 0.378378rem;
 	}
 </style>
 
